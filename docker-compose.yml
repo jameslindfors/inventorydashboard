@@ -1,0 +1,44 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      target: deploy-node
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./client:/src/
+  analytics-service:
+    extends:
+      file: ./api/docker-compose.yml
+      service: analytics-service
+  inventory-service:
+    extends:
+      file: ./api/docker-compose.yml
+      service: inventory-service  
+  auth-service:
+    extends:
+      file: ./api/docker-compose.yml
+      service: auth-service
+  nginx:
+    extends:
+      file: ./api/docker-compose.yml
+      service: nginx
+  rabbitmq:
+    extends:
+      file: ./api/docker-compose.yml
+      service: rabbitmq
+  postgres:
+    extends:
+      file: ./api/docker-compose.yml
+      service: postgres
+networks:
+  postgres:
+    name: postgres
+  rabbitmq_net:
+    name: rabbitmq_net
+volumes:
+  postgres:
+  pgadmin:
