@@ -18,6 +18,13 @@ services:
     environment:
       - FASTAPI_DEBUG=True 
     restart: always
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./auth-service:/src/
+    restart: always
   nginx:
     build:
       context: ./nginx
@@ -25,6 +32,7 @@ services:
     depends_on:
       - analytics-service
       - inventory-service
+      - auth-service
     ports:
       - "443:443"
       - "8080:8080"
@@ -58,6 +66,7 @@ services:
     depends_on:
       - analytics-service
       - inventory-service
+      - auth-service
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
