@@ -1,0 +1,79 @@
+version: '3.9'
+services:
+  analytics-service:
+    build:
+      context: ./analytics-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./analytics-service:/src/
+    environment:
+      - FASTAPI_DEBUG=True
+    restart: always
+  inventory-service:
+    build:
+      context: ./inventory-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./inventory-service:/src/
+    environment:
+      - FASTAPI_DEBUG=True 
+    restart: always
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - analytics-service
+      - inventory-service
+    ports:
+      - "443:443"
+      - "8080:8080"
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+    healthcheck:
+        test: curl --fail http://localhost || exit 1
+        interval: 60s
+        retries: 5
+        start_period: 20s
+        timeout: 10s
+  rabbitmq:
+    image: rabbitmq:3.10.7-management-alpine
+    container_name: 'rabbitmq'
+    depends_on:
+        - nginx
+    ports:
+        - 5672:5672
+        - 15672:15672
+    restart: always
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - rabbitmq_net
+  postgres:
+    image: postgres:alpine3.16
+    container_name: 'postgres'
+    depends_on:
+      - analytics-service
+      - inventory-service
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      PGDATA: /data/postgres
+    ports:
+      - "5432:5432" 
+    restart: unless-stopped
+    volumes:
+      - postgres:/data/postgres
+    networks:
+      - postgres
+networks:
+  postgres:
+    driver: bridge
+  rabbitmq_net:
+    driver: bridge
+volumes:
+    postgres:
+    pgadmin:
