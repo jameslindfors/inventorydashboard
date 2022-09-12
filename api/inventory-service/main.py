@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from routers import product_route, inventory_route
 import os
 
-
 app = FastAPI(openapi_url="/api/v1/openapi.json", docs_url="/api/v1/docs")
 
 app.add_middleware(
@@ -19,6 +18,6 @@ inventory_enabled = os.getenv('INVENTORY_ENABLED', 'y')
 
 # app.include_router(product.router, prefix='/api/v1/product/')
 if product_enabled == 'y':
-    app.include_router(product_route.router, prefix='/api/v1/product')
+    app.include_router(product_route.router, prefix='/api/v1/p')
 if inventory_enabled == 'y':
-    app.include_router(inventory_route.router, prefix='/api/v1/inventory')
+    app.include_router(inventory_route.router, prefix='/api/v1/i')
