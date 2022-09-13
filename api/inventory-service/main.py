@@ -16,8 +16,7 @@ app.add_middleware(
 product_enabled = os.getenv('PRODUCT_ENABLED', 'y')
 inventory_enabled = os.getenv('INVENTORY_ENABLED', 'y')
 
-# app.include_router(product.router, prefix='/api/v1/product/')
 if product_enabled == 'y':
-    app.include_router(product_route.router, prefix='/api/v1/p')
+    app.include_router(product_route.router, prefix='/inventory/api/p')
 if inventory_enabled == 'y':
-    app.include_router(inventory_route.router, prefix='/api/v1/i')
+    app.include_router(inventory_route.router, prefix='/inventory/api/i')
