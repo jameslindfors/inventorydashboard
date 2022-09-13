@@ -69,10 +69,11 @@ services:
       - auth-service
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-dev}
       PGDATA: /data/postgres
-    ports:
-      - "5432:5432" 
+    expose:
+      - 5432:5433
     restart: unless-stopped
     volumes:
       - postgres:/data/postgres
