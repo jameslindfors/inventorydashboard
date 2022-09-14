@@ -1,4 +1,4 @@
 fastapi
 pydantic
 uvicorn
-tortoise-orm
+tortoise-orm[asyncpg]
