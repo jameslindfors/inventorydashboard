@@ -39,6 +39,8 @@ networks:
     name: postgres
   rabbitmq_net:
     name: rabbitmq_net
+  api_net:
+    name: api_net
 volumes:
   postgres:
   pgadmin:
