@@ -1,4 +1,5 @@
 from http.client import HTTPException
+from typing import List
 from fastapi import APIRouter
 from tortoise.contrib.fastapi import HTTPNotFoundError
 from models.collection_model import Collection, CollectionIn_Pydantic, Collection_Pydantic
@@ -12,7 +13,7 @@ async def get_collection_by_id(collection_id: int):
     return await Collection_Pydantic.from_queryset_single(Collection.get(id=collection_id))
 
 @router.get(
-    '/get-all/collection', response_model=List[Collection_Pydantic], resposnes={404: {'model': HTTPNotFoundError}}, tags=['collection']
+    '/get-all/collection', response_model=List[Collection_Pydantic], responses={404: {'model': HTTPNotFoundError}}, tags=['collection']
 )
 async def get_all_collections():
     return await Collection_Pydantic.from_queryset(Collection.all())
@@ -29,7 +30,7 @@ async def update_collection_by_id(collection_id: int, collection: CollectionIn_P
     await Collection.filter(id=collection_id).update(**collection.dict(exclude_unset=True))
     return await Collection_Pydantic.from_queryset_single(Collection.get(id=collection_id))
 
-@router.delete('/delete/collection/{collection_id}', responses={404: {'model': HTTPException}},tags=['collection']
+@router.delete('/delete/collection/{collection_id}', responses={404: {'model': HTTPNotFoundError}},tags=['collection']
 )
 async def delete_collection_by_id(collection_id: int):
     deleted = await Collection.filter(id=collection_id).delete()

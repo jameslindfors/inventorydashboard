@@ -1,4 +1,5 @@
 from http.client import HTTPException
+from typing import List
 from fastapi import APIRouter
 from tortoise.contrib.fastapi import HTTPNotFoundError
 from models.product_model import Product, ProductIn_Pydantic, Product_Pydantic
