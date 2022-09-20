@@ -2,7 +2,7 @@ from http.client import HTTPException
 from typing import List
 from fastapi import APIRouter
 from tortoise.contrib.fastapi import HTTPNotFoundError
-from models.product_model import Product, ProductIn_Pydantic, Product_Pydantic
+from models.product_model import Collection, Product, ProductIn_Pydantic, Product_Pydantic
 
 router = APIRouter()
 
@@ -19,10 +19,12 @@ async def get_all_products():
     return await Product_Pydantic.from_queryset(Product.all())
 
 @router.post(
-    '/create', response_model=Product_Pydantic, status_code=201, tags=['product']
+    '/create/{collection_id}', response_model=Product_Pydantic, status_code=201, tags=['product']
 )
-async def create_products(product: ProductIn_Pydantic):
-    product_obj = await Product.create(**product.dict(exclude_unset=True))
+async def create_products(collection_id: int, product: ProductIn_Pydantic):
+    collection_obj = await Collection.get(id = collection_id)
+    product_obj = await Product.create(**product.dict(exclude_unset=True), collection = collection_obj)
+    
     return await Product_Pydantic.from_tortoise_orm(product_obj)
 
 @router.put(

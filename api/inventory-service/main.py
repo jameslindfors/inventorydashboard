@@ -15,9 +15,7 @@ app.add_middleware(
     allow_credentials=True,
 )
 
-@app.on_event("startup")
-async def startup():
-    database.init_db(app)
+database.init_db(app)
 
 product_enabled = os.getenv('PRODUCT_ENABLED', 'y')
 collection_enabled = os.getenv('COLLECTION_ENABLED', 'y')

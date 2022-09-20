@@ -2,7 +2,7 @@ from http.client import HTTPException
 from typing import List
 from fastapi import APIRouter
 from tortoise.contrib.fastapi import HTTPNotFoundError
-from models.collection_model import Collection, CollectionIn_Pydantic, Collection_Pydantic
+from models.product_model import Product, Collection, CollectionIn_Pydantic, Collection_Pydantic
 
 router = APIRouter()
 
@@ -16,6 +16,13 @@ async def get_collection_by_id(collection_id: int):
     '/get-all/collection', response_model=List[Collection_Pydantic], responses={404: {'model': HTTPNotFoundError}}, tags=['collection']
 )
 async def get_all_collections():
+    collection = await Collection.all()
+    
+    for x in collection:
+        products = await Product.all().filter(collection_id=x.id)
+        for y in products:
+            print(y.name)
+            
     return await Collection_Pydantic.from_queryset(Collection.all())
 
 @router.post('/create/collection', response_model=Collection_Pydantic, status_code=201, tags= ['collection']
