@@ -1,10 +1,7 @@
 # syntax=docker/dockerfile:1
+FROM python:3.8.14-alpine3.16 as builder
 
-FROM python:3.9.14-slim-bullseye as builder
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc
-RUN adduser --system --group app
+RUN apk add gcc python3-dev musl-dev
 
 WORKDIR /src
 
@@ -20,8 +17,6 @@ ENV ENVIRONMENT prod
 ENV PYTHONPATH=/src
 
 COPY . ./src
-
-USER app
 
 EXPOSE 8080
 
