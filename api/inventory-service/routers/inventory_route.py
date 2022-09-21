@@ -1,20 +1,38 @@
+"""Inventory Route"""
 from fastapi import APIRouter
 
 router = APIRouter()
 
-
-@router.get('/', tags=['inventory'])
-def inventory():
-    return 'Inventory API is running'
-
 @router.get("/inventory", tags=['inventory'])
 async def inventory_get(skip = 0, limit = 5):
-    return {"inventory_status": 1}
+    """ Get Inventory
 
-@router.put("/{product_id}", tags=['inventory'])
-async def inventory_update(product_id):
-    return {"product_id": product_id, "amount": 10}
+    Args:
+        skip (int, optional): number to skip. Defaults to 0.
+        limit (int, optional): limit to retrieve. Defaults to 5.
+
+    Returns:
+        dict: status
+    """
+    return {"inventory_status": 1, "args": {"skip": skip, "limit": limit}}
+
+@router.put("/{inventory_id}", tags=['inventory'])
+async def inventory_update(inventory_id: int):
+    """ Update Inventory Fields
+
+    Args:
+        inventory_id (int): id of the inventory
+
+    Returns:
+        dict: status
+    """
+    return {"inventory_id": inventory_id, "amount": 10}
 
 @router.delete("/clear", tags=['inventory'])
 async def inventory_clear():
+    """ Delete all items in inventory
+
+    Returns:
+        dict: status
+    """
     return {"status": "cleared"}

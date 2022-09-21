@@ -1,14 +1,18 @@
-from typing import Set
+"""Config Module"""
+from dataclasses import dataclass
 from pydantic import BaseSettings
 
-
+@dataclass
 class Settings(BaseSettings):
-    APP_NAME: str = "INVENTORY_SERVICE"
-    APP_VERSION: str = "0.0.1"
-    URI_PREFIX: str = "inventory/api"
-    POSTGRESQL_USERNAME: str = "postgres"
-    POSTGRESQL_PASSWORD: str = "password"
-    POSTGRESQL_DATABASE: str = "dev"
+    """
+        Settings Data Class
+    """
+    app_name: str = "INVENTORY_SERVICE"
+    app_version: str = "0.0.1"
+    uri_prefix: str = "inventory/api"
+    postgresql_username: str = "postgres"
+    postgresql_password: str = "password"
+    postgresql_database: str = "dev"
 
 
 settings = Settings()
