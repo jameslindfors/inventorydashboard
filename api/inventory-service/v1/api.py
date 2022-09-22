@@ -6,7 +6,7 @@ from core.models.database import init_db
 from core.config import settings
 from .endpoints import (
     collection,
-    inventory,
+    inventory_meta,
     product,
     util
 )
@@ -30,6 +30,6 @@ def register_v1(_app):
     if collection_enabled == 'y':
         _app.include_router(collection.router, prefix=f'/{settings.uri_prefix}/c')
     if inventory_enabled == 'y':
-        _app.include_router(inventory.router, prefix=f'/{settings.uri_prefix}/i')
+        _app.include_router(inventory_meta.router, prefix=f'/{settings.uri_prefix}/i')
     if utils_enabled == 'y':
         _app.include_router(util.router, prefix=f'/{settings.uri_prefix}/u')
