@@ -1,4 +1,4 @@
-"""Product Collection Model Module"""
+"""Product Model Module"""
 from tortoise import fields
 from tortoise.models import Model
 
@@ -27,14 +27,3 @@ class Product(Model):
     sale_percent = fields.FloatField()
 
     collection = fields.ForeignKeyField('models.Collection', related_name='products')
-
-class Collection(Model):
-    """ Tortoise ORM Collection Model
-
-    Args:
-        Model (_type_): ORM base model
-    """
-
-    id = fields.IntField(pk=True)
-    name = fields.CharField(max_length=20)
-    description = fields.CharField(max_length=100)

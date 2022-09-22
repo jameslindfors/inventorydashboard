@@ -2,7 +2,9 @@
 from http.client import HTTPException
 from fastapi import APIRouter
 from tortoise.contrib.fastapi import HTTPNotFoundError
-from core.models.model import Product, Collection
+
+from core.models.product import Product
+from core.models.collection import Collection
 from core.schemas.collection import Collection_Pydantic, CollectionIn_Pydantic
 
 router = APIRouter()
