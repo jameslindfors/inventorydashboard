@@ -1,39 +1,31 @@
-"""Main Module"""
-import os
+"""Main Entrypoint"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from v1.api import register_v1
 
-from .db import database
-from .config import settings
-from .routers import product_route, inventory_route, collection_route, util_route
+from core.config import settings
 
-app = FastAPI(title=settings.APP_NAME,
-            version=settings.APP_VERSION,
-            openapi_url=f"/{settings.URI_PREFIX}/openapi.json",
-            docs_url=f"/{settings.URI_PREFIX}/docs")
 
-app.add_middleware(
+def get_application():
+    """ Initialize App
+
+    Returns:
+        app: return app instance
+    """
+    _app = FastAPI(title=settings.app_name,
+            version=settings.app_version,
+            openapi_url=f"/{settings.uri_prefix}/openapi.json",
+            docs_url=f"/{settings.uri_prefix}/docs")
+
+    _app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True,
-)
+    )
 
-database.init_db(app)
+    return _app
 
-product_enabled = os.getenv('PRODUCT_ENABLED', 'y')
-collection_enabled = os.getenv('COLLECTION_ENABLED', 'y')
-inventory_enabled = os.getenv('INVENTORY_ENABLED', 'y')
-utils_enabled = os.getenv('UTILS_ENABLED', 'y')
-
-
-if product_enabled == 'y':
-    app.include_router(product_route.router, prefix=f'/{settings.URI_PREFIX}/p')
-if collection_enabled == 'y':
-    app.include_router(collection_route.router, prefix=f'/{settings.URI_PREFIX}/c')
-if inventory_enabled == 'y':
-    app.include_router(inventory_route.router, prefix=f'/{settings.URI_PREFIX}/i')
-if utils_enabled == 'y':
-    app.include_router(util_route.router, prefix=f'/{settings.URI_PREFIX}/u')
-    
+app = get_application()
+register_v1(app)

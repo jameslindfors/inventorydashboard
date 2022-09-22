@@ -1,4 +1,4 @@
-"""Util Route"""
+"""Util Endpoint"""
 from fastapi import APIRouter
 
 router = APIRouter()

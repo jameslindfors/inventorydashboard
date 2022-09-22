@@ -1,4 +1,4 @@
-"""Product Model Module"""
+"""Product Collection Model Module"""
 from tortoise import fields
 from tortoise.models import Model
 

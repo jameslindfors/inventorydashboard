@@ -1,8 +1,6 @@
 """Config Module"""
-from dataclasses import dataclass
 from pydantic import BaseSettings
 
-@dataclass
 class Settings(BaseSettings):
     """
         Settings Data Class

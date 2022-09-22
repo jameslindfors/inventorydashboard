@@ -1,7 +1,7 @@
 """Database Module"""
 from tortoise.contrib.fastapi import register_tortoise
-from config import settings
-from .utils import generate_db_uri
+from core.config import settings
+from ..utils import generate_db_uri
 
 def init_db(app):
     """ Registers Tortoise ORM

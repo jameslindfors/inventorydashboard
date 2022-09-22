@@ -1,4 +1,4 @@
-"""Inventory Route"""
+"""Inventory Endpoint"""
 from fastapi import APIRouter
 
 router = APIRouter()
