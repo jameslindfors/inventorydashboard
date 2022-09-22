@@ -11,7 +11,7 @@ class Product(Model):
 
     id = fields.IntField(pk=True)
 
-    name = fields.CharField(50, unique=True)
+    name = fields.CharField(50)
     description = fields.CharField(50)
     image = fields.CharField(50)
 

@@ -19,7 +19,7 @@ def init_db(app):
             password=settings.postgresql_password,
             database=settings.postgresql_database
             ),
-        modules={'models': ['models.product_model']},
+        modules={'models': ['core.models']},
         generate_schemas=True,
         add_exception_handlers=True
     )
