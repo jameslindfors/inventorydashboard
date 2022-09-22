@@ -1,9 +1,13 @@
-"""Inventory Route"""
+"""Inventory Endpoint"""
 from fastapi import APIRouter
+import datetime
+
+from core.models.inventory_meta import InventoryMeta
+from core.schemas.inventory_meta import InventoryMeta_Pydantic, InventoryMetaIn_Pydantic
 
 router = APIRouter()
 
-@router.get("/inventory", tags=['inventory'])
+@router.get("/inventory_meta", tags=['inventory'])
 async def inventory_get(skip = 0, limit = 5):
     """ Get Inventory
 
@@ -14,9 +18,10 @@ async def inventory_get(skip = 0, limit = 5):
     Returns:
         dict: status
     """
-    return {"inventory_status": 1, "args": {"skip": skip, "limit": limit}}
+    inventory_obj = await InventoryMeta_Pydantic.from_queryset_single(InventoryMeta.all())
+    return {"data": inventory_obj, "args": {"skip": skip, "limit": limit}}
 
-@router.put("/{inventory_id}", tags=['inventory'])
+@router.put("/{inventory_id}", response_model=InventoryMeta_Pydantic, tags=['inventory'])
 async def inventory_update(inventory_id: int):
     """ Update Inventory Fields
 

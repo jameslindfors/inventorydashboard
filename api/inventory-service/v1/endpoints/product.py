@@ -1,9 +1,12 @@
-"""Product Route"""
+"""Product Endpoint"""
 from http.client import HTTPException
 from typing import List
 from fastapi import APIRouter
 from tortoise.contrib.fastapi import HTTPNotFoundError
-from models.product_model import Collection, Product, ProductIn_Pydantic, Product_Pydantic
+
+from core.models.product import Product
+from core.models.collection import Collection
+from core.schemas.product import Product_Pydantic, ProductIn_Pydantic
 
 router = APIRouter()
 

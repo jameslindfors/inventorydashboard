@@ -1,7 +1,7 @@
 """Database Module"""
 from tortoise.contrib.fastapi import register_tortoise
-from config import settings
-from .utils import generate_db_uri
+from core.config import settings
+from ..utils import generate_db_uri
 
 def init_db(app):
     """ Registers Tortoise ORM
@@ -19,7 +19,7 @@ def init_db(app):
             password=settings.postgresql_password,
             database=settings.postgresql_database
             ),
-        modules={'models': ['models.product_model']},
+        modules={'models': ['core.models']},
         generate_schemas=True,
         add_exception_handlers=True
     )
