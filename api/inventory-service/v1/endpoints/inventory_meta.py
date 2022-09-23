@@ -3,7 +3,8 @@ from fastapi import APIRouter
 import datetime
 
 from core.models.inventory_meta import InventoryMeta
-from core.schemas.inventory_meta import InventoryMeta_Pydantic, InventoryMetaIn_Pydantic
+from core.schemas.inventory_meta import InventoryMeta_Pydantic
+from v1.services.inventory_meta import init_inventory_metadata, update_inventory_metadata
 
 router = APIRouter()
 
@@ -11,33 +12,17 @@ router = APIRouter()
 async def inventory_get(skip = 0, limit = 5):
     """ Get Inventory
 
-    Args:
-        skip (int, optional): number to skip. Defaults to 0.
-        limit (int, optional): limit to retrieve. Defaults to 5.
-
     Returns:
-        dict: status
+        InventoryMeta: single instance
     """
-    inventory_obj = await InventoryMeta_Pydantic.from_queryset_single(InventoryMeta.all())
-    return {"data": inventory_obj, "args": {"skip": skip, "limit": limit}}
+    return await InventoryMeta_Pydantic.from_queryset_single(InventoryMeta.first())
 
-@router.put("/{inventory_id}", response_model=InventoryMeta_Pydantic, tags=['inventory'])
-async def inventory_update(inventory_id: int):
+@router.post("/inventory_meta", tags=['inventory'])
+async def inventory_init():
+    return await init_inventory_metadata()
+
+@router.put("/inventory_meta", tags=['inventory'])
+async def inventory_update():
     """ Update Inventory Fields
-
-    Args:
-        inventory_id (int): id of the inventory
-
-    Returns:
-        dict: status
     """
-    return {"inventory_id": inventory_id, "amount": 10}
-
-@router.delete("/clear", tags=['inventory'])
-async def inventory_clear():
-    """ Delete all items in inventory
-
-    Returns:
-        dict: status
-    """
-    return {"status": "cleared"}
+    return await update_inventory_metadata()
