@@ -1,2 +1,10 @@
+<script>
+    import 'bulma/css/bulma.css'
+    import {Svelma} from 'svelma'
+</script>
+<head>
+    <title>Dashboard</title>
+</head>
 <h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<br>
+<Svelma.Button type='is-primary'>This is button</Svelma.Button>
