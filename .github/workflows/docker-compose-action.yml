@@ -18,9 +18,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.2.0
-        with:
-          compose-file: "./docker-compose.yml"
-          down-flags: "--volumes"
+  # need checkout before using compose-action
+    - uses: actions/checkout@v3
+    - uses: isbang/compose-action@v1.2.0
+      with:
+        compose-file: "./docker-compose.yml"
+        down-flags: "--volumes"
+        services: |
+          web
+          analytics-service
+          inventory-service
+          auth-service
+          nginx
+          rabbitmq
+          postgres
