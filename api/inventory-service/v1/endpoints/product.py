@@ -1,6 +1,6 @@
 """Product Endpoint"""
 from http.client import HTTPException
-from typing import List
+from typing import List, Union
 from fastapi import APIRouter
 from tortoise.contrib.fastapi import HTTPNotFoundError
 
@@ -29,13 +29,14 @@ async def get_product_by_id(product_id: int):
     '/get-all/', response_model=List[Product_Pydantic],
     responses={404: {'model': HTTPNotFoundError}}, tags= ['product']
 )
-async def get_all_products():
+async def get_all_products(offset: int = 0, limit: Union[int, None] = None):
     """ Retrieve all Products
 
     Returns:
         dict: data
     """
-    return await Product_Pydantic.from_queryset(Product.all())
+    if limit: return await Product_Pydantic.from_queryset(Product.all().offset(offset).limit(limit))
+    return await Product_Pydantic.from_queryset(Product.all().offset(offset))
 
 @router.post(
     '/create/{collection_id}', response_model=Product_Pydantic,
