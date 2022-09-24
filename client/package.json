@@ -31,7 +31,6 @@
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"feather-icons-svelte-kit": "^1.0.309",
 		"jest-dom": "^4.0.0",
 		"jsdom": "^20.0.0",
 		"prettier": "^2.6.2",
@@ -48,6 +47,7 @@
 	"dependencies": {
 		"bulma": "^0.9.4",
 		"node-sass": "^7.0.3",
-		"svelma": "^0.4.5"
+		"svelma": "^0.4.5",
+		"svelte-feather-icons": "^4.0.0"
 	}
 }

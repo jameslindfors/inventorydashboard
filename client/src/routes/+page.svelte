@@ -1,6 +1,7 @@
-<script>
+<script type="ts">
 	import 'bulma/css/bulma.css';
 	import { Tabs, Tab } from 'svelma';
+	import Nav from '/src/components/Nav.svelte';
 	import Table from '/src/components/Table.svelte';
 
 	/** @type {import('./$types').PageData} */
@@ -22,11 +23,11 @@
 <svelte:head>
 	<title>Dashboard</title>
 </svelte:head>
-<h1 class="mx-4 is-size-2">Inventory Manager</h1>
+<Nav />
 <br />
 <Tabs style="is-boxed">
 	{#each tabs as tab}
-		<Tab label={tab.label} style="my-0">
+		<Tab label={tab.label}>
 			{#if tab.component}
 				<svelte:component this={tab.component} {...tab.props} />
 			{/if}
