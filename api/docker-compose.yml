@@ -23,8 +23,6 @@ services:
       - POSTGRESQL_PASSWORD=password
       - POSTGRESQL_DATABASE=dev
     restart: always
-    depends_on:
-      - postgres
     networks:
       - postgres
       - api_net
