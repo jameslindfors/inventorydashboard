@@ -15,19 +15,19 @@ services:
       file: ./api/docker-compose.yml
       service: analytics-service
     depends_on:
-      -postgres
+      - postgres
   inventory-service:
     extends:
       file: ./api/docker-compose.yml
       service: inventory-service  
     depends_on:
-      -postgres
+      - postgres
   auth-service:
     extends:
       file: ./api/docker-compose.yml
       service: auth-service
     depends_on:
-      -postgres
+      - postgres
   nginx:
     extends:
       file: ./api/docker-compose.yml
