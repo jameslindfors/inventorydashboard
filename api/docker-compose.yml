@@ -82,7 +82,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
       POSTGRES_DB: ${POSTGRES_DB:-dev}
       PGDATA: /data/postgres
-    expose:
+    ports:
       - 5432:5432
     restart: unless-stopped
     volumes:
