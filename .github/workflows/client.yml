@@ -1,18 +1,50 @@
 name: Client CI
 
-on: [ push ]
-
+on:
+  push:
+    branches:
+      - "main"
+      - "client"
+  pull_request:
+    branches:
+      - "main"
+  workflow_dispatch:
+    
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3 
-      - uses: actions/setup-node@v3
-      - name: "Client Build"
+  client:
+    runs-on: ${{ matrix.os }}
+    env:
+      CI: false
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [14.x]
+    defaults:
+      run:
         working-directory: ./client
-        run: |
-          npm ci
-          npm run test
-          npm run format
-          npm run lint
-          npm run build
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: "./client/package-lock.json"
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: Test
+        run: npm run test
+
+      - name: Format
+        run: npm run format
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build --if-present
