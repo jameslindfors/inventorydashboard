@@ -10,14 +10,12 @@
 		"test:watch": "npx vitest",
 		"test:debug": "npx vitest --debug",
 		"test:coverage": "npx vitest --coverage",
-		"test:bdd": "playwright test",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.25.0",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/adapter-node": "^1.0.0-next.89",
 		"@sveltejs/adapter-static": "^1.0.0-next.42",

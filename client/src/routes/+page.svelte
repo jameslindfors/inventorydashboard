@@ -1,19 +1,29 @@
 <script type="ts">
 	import 'bulma/css/bulma.css';
 	import { Tabs, Tab } from 'svelma';
-	import Nav from '/src/components/Nav.svelte';
-	import Table from '/src/components/Table.svelte';
+	import Nav from '$lib/Nav.svelte';
+	import Table from '$lib/Table.svelte';
 
-	/** @type {import('./$types').PageData} */
-	export let data;
+	type CollectionData = {
+		data: [
+			{
+				id: number;
+				name: string;
+				description: string;
+				products: [any];
+			}
+		];
+	};
 
-	let tabs = data.data
-		.map((/** @type {{ name: any; products: any; }} */ tab) => {
+	export let data: CollectionData;
+
+	const tabs = data.data
+		.map((collection) => {
 			return {
-				label: tab.name,
+				label: collection.name,
 				component: Table,
 				props: {
-					products: tab.products
+					products: collection.products
 				}
 			};
 		})
