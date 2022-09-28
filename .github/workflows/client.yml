@@ -36,10 +36,7 @@ jobs:
 
       - name: Install Packages
         run: npm ci
-
-      - name: Test
-        run: npm run test
-
+        
       - name: Format
         run: npm run format
 
