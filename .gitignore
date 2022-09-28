@@ -9,7 +9,6 @@
 
 build/
 dist/
-lib/
 lib64/
 var/
 
