@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/svelte';
+import { render, screen } from '@testing-library/svelte';
 import NewCollectionModal from './NewCollectionModal.svelte';
 
 describe('NewCollectionModal', () => {

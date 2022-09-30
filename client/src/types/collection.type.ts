@@ -1,12 +1,12 @@
-import type { ProductType } from "./product.type";
+import type { ProductType } from './product.type';
 
 export type CollectionType = {
-    data: [
-        {
-            id: number;
-            name: string;
-            description: string;
-            products: [ProductType];
-        }
-    ];
+	data: [
+		{
+			id: number;
+			name: string;
+			description: string;
+			products: [ProductType];
+		}
+	];
 };

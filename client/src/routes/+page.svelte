@@ -1,7 +1,7 @@
 <script type="ts">
 	import 'bulma/css/bulma.css';
 	import type { CollectionType } from '../types/collection.type';
-	// @ts-expect-error
+	// @ts-expect-error Import Issue
 	import { Tabs, Tab } from 'svelma';
 	import Nav from '$lib/Nav/Nav.svelte';
 	import Table from '$lib/Table/Table.svelte';

@@ -1,5 +1,5 @@
 <script lang="ts">
-	// @ts-expect-error
+	// @ts-expect-error Import Issue
 	import { Button } from 'svelma';
 	import NewCollectionModel from '../NewCollectionModal/NewCollectionModal.svelte';
 
