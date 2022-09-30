@@ -1,6 +1,7 @@
 <script lang="ts">
-	import RowForm from './RowForm.svelte';
-	export let products;
+	import type { ProductType } from 'src/types/product.type';
+	import RowForm from '../RowForm/RowForm.svelte';
+	export let products: ProductType[];
 </script>
 
 <table class="table my-1 is-fullwidth">
@@ -14,7 +15,7 @@
 			<th>Tax Rate</th>
 			<th>Currency</th>
 			<th>Sale</th>
-			<th>Sale Price</th>
+			<th>Sale Percent</th>
 			<th />
 			<th />
 		</tr>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	// @ts-expect-error
 	import { Button, Modal } from 'svelma';
 	export let active: boolean;
 </script>

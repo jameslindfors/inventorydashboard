@@ -1,6 +1,7 @@
 <script lang="ts">
+	// @ts-expect-error
 	import { Button } from 'svelma';
-	import NewCollectionModel from './NewCollectionModal.svelte';
+	import NewCollectionModel from '../NewCollectionModal/NewCollectionModal.svelte';
 
 	let active = false;
 </script>
